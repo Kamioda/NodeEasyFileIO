@@ -1,5 +1,5 @@
 import { writeFileSync, existsSync, mkdirSync } from 'node:fs';
-import IO from './NewLine';
+import IO from './NewLine.js';
 
 export function writeFile(path: string, content?: string | NodeJS.ArrayBufferView, overwrite?: boolean) {
     const dir = path.substring(0, path.lastIndexOf('/') + 1);

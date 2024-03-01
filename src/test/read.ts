@@ -1,4 +1,4 @@
-import { readFile, readCSV, readJson, readProperties } from '../main/read';
+import { readFile, readCSV, readJson, readProperties } from '../main/read.js';
 import test from 'ava';
 
 test('Read Text File/OK', t => {
