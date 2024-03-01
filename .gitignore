@@ -136,3 +136,4 @@ exec_log.json
 docker_configs/
 minio/
 .tsimp/
+writetestdata/
