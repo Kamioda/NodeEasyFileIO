@@ -85,8 +85,8 @@ test('Create Properties File/Error', t => {
         name: 'Hello World!',
         url: {
             kamioda: 'https://www.kamioda.tokyo/',
-            meigetsu: 'https://www.meigetsu.jp/'
+            meigetsu: 'https://www.meigetsu.jp/',
         },
-    };    
+    };
     t.throws(() => writeProperties('./writetestdata/test.properties', obj));
 });
