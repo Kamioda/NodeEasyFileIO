@@ -9,7 +9,7 @@
         "strict": true,
         "outDir": "dist/main/",
         "module": "ESNext",
-        "moduleResolution": "Node",
+        "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "allowJs": true,
