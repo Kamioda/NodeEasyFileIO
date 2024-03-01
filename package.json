@@ -1,0 +1,51 @@
+{
+  "name": "nodeeasyfileio",
+  "version": "1.0.0",
+  "description": "Node.js Easy File IO",
+  "main": "dist/index.js",
+  "scripts": {
+    "prettier": "prettier --write .",
+    "eslint": "eslint --cache --ext .js,.ts .",
+    "eslint:fix": "eslint --cache --ext .js,.ts . --fix",
+    "coverage": "c8 npm test",
+    "ci": "run-p eslint coverage",
+    "test": "ava --verbose ./src/test/",
+    "start": "node ./server.js",
+    "build": "tsc",
+    "build:release": "tsc --project tsconfig.release.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kamioda/NodeEasyFileIO.git"
+  },
+  "author": "Kamioda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kamioda/NodeEasyFileIO/issues"
+  },
+  "homepage": "https://github.com/Kamioda/NodeEasyFileIO#readme",
+  "devDependencies": {
+    "@ava/typescript": "^4.1.0",
+    "@types/node": "^20.11.24",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "ava": "^6.1.1",
+    "c8": "^9.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-ava": "^14.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.2.5",
+    "tsimp": "^2.0.11",
+    "typescript": "^5.3.3"
+  },
+  "ava": {
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--import=tsimp"
+    ]
+  }
+}
