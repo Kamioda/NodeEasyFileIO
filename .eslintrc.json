@@ -1,8 +1,15 @@
 {
-    "extends": ["eslint:recommended", "plugin:node/recommended", "prettier"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:node/recommended",
+        "prettier",
+        "plugin:ava/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "sourceType": "module",
-        "ecmaVersion": 2020
+        "ecmaVersion": 2023
     },
     "env": {
         "es6": true,
