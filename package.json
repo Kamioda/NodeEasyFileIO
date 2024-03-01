@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Node.js Easy File IO",
   "main": "dist/main/index.js",
+  "type": "module",
   "types": "dist/@types",
   "scripts": {
     "prettier": "prettier --write .",
