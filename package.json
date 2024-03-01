@@ -2,7 +2,8 @@
   "name": "nodeeasyfileio",
   "version": "1.0.0",
   "description": "Node.js Easy File IO",
-  "main": "dist/index.js",
+  "main": "dist/main/index.js",
+  "types": "dist/@types",
   "scripts": {
     "prettier": "prettier --write .",
     "eslint": "eslint --cache --ext .js,.ts .",
