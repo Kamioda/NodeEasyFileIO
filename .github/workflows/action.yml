@@ -10,7 +10,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-      - run: npm ci
+      - run: npm install
       - name: Execute test
         run: npm run ci
       - name: Publish coverage
@@ -31,7 +31,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Publish
         run: |
-          npm ci
+          npm install
           npm run build
           npm publish
         env:
