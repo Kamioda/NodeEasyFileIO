@@ -16,6 +16,7 @@
         "karma.conf.js",
         "webpack-tests.config.js",
         "webpack.config.js",
-        "ForTest/*.js"
+        "ForTest/*.js",
+        "src/main/NewLine.ts"
     ]
 }
