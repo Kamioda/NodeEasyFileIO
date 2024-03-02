@@ -21,7 +21,6 @@ export function writeCSV(path: string, content: string[] | string[][], overwrite
 }
 
 export function writeJson(path: string, content: object, overwrite?: boolean) {
-    /* c8 ignore next */
     writeFile(path, JSON.stringify(content), overwrite);
 }
 
