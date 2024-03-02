@@ -15,7 +15,7 @@
         "es6": true,
         "node": true
     },
-    "plugins": ["node"],
+    "plugins": ["node", "@typescript-eslint"],
     "rules": {
         "no-await-in-loop": "error",
         "no-useless-escape": "error",
