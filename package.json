@@ -14,7 +14,8 @@
     "pretest": "tsc",
     "test": "ava --verbose ./test/",
     "posttest": "node ./cleanup.js",
-    "build": "tsc"
+    "prepack": "tsc",
+    "postpack": "node ./cleanup.js"
   },
   "repository": {
     "type": "git",
