@@ -13,7 +13,7 @@
     "ci": "run-p eslint coverage",
     "pretest": "tsc",
     "test": "ava --verbose ./test/",
-    "posttest": "node ./ForTest/cleanup.js",
+    "posttest": "node ./cleanup.js",
     "build": "tsc"
   },
   "repository": {
