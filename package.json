@@ -14,9 +14,7 @@
     "pretest": "tsc",
     "test": "ava --verbose ./test/",
     "posttest": "node ./ForTest/cleanup.js",
-    "start": "node ./server.js",
-    "build": "tsc",
-    "build:release": "tsc --project tsconfig.release.json"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
