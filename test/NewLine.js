@@ -1,4 +1,4 @@
-import IO from '../main/NewLine.js';
+import IO from '../dist/main/NewLine.js';
 import test from 'ava';
 
 test('New Line Test', t => {

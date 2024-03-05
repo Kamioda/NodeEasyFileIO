@@ -16,10 +16,5 @@
         "declaration": true,
         "declarationDir": "dist/@types"
     },
-    "include": ["src/main/**/*"],
-    "exclude": ["src/tests/**/*"],
-    "ts-node": {
-        "esm": true,
-        "experimentalSpecifierResolution": "node"
-    }
+    "include": ["src/**/*"]
 }

@@ -1,7 +1,7 @@
-import { writeFile, writeCSV, writeJson, writeProperties } from '../main/write.js';
+import { writeFile, writeCSV, writeJson, writeProperties } from '../dist/main/write.js';
 import test from 'ava';
 import { readFileSync, existsSync, rmSync } from 'node:fs';
-import IO from '../main/NewLine.js';
+import IO from '../dist/main/NewLine.js';
 
 test.before('Init environment', () => {
     if (existsSync('./writetestdata')) rmSync('./writetestdata', { recursive: true });
