@@ -142,3 +142,4 @@ minio/
 .tsimp/
 *testdata/
 package-lock.json
+test/
