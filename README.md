@@ -1,5 +1,7 @@
 # Node Easy File IO
 
+[![Coverage Status](https://coveralls.io/repos/github/Kamioda/NodeEasyFileIO/badge.svg?branch=master)](https://coveralls.io/github/Kamioda/NodeEasyFileIO?branch=master)
+
 このプロジェクトは、Node.jsでのファイルの読み書きの煩わしさを解決するプロジェクトです
 
 ## コードBefore/After
