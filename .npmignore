@@ -143,3 +143,5 @@ minio/
 *testdata/
 package-lock.json
 test/
+cleanup.js
+.*/
