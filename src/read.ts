@@ -5,9 +5,9 @@ export function readFile(path: string): string {
     return readFileSync(path, 'utf-8');
 }
 
-export function readCSV(path: string): string[] | string[][] {
+export function readCSV(path: string): string[][] {
     const LineSplitResult = readFile(path).split(/\r\n|\n|\r/g);
-    return LineSplitResult.length === 1 ? LineSplitResult[0].split(',') : LineSplitResult.map(val => val.split(','));
+    return LineSplitResult.length === 1 ? [LineSplitResult[0].split(',')] : LineSplitResult.map(val => val.split(','));
 }
 
 export function readJson<ReturnType = object>(path: string): ReturnType {

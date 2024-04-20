@@ -11,10 +11,12 @@ test('Read Text File/File is not found', t => {
 });
 
 test('Read CSV 1', t => {
-    const expect = ['Hello', 'World!'];
+    const expect = [['Hello', 'World!']];
     const ReadResult = readCSV('./readtestdata/test1.csv');
-    expect.forEach((val, index) => {
-        t.is(ReadResult[index], val);
+    expect.forEach((arr, pIndex) => {
+        arr.forEach((val, sIndex) => {
+            t.is(ReadResult[pIndex][sIndex], val);
+        });
     });
 });
 
