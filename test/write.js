@@ -1,4 +1,4 @@
-import { writeFile, writeCSV, writeJson, writeProperties } from '../dist/main/write.js';
+import { writeFile, writeCSV, writeJson, writeProperties } from '../dist/main/index.js';
 import test from 'ava';
 import { readFileSync, existsSync, rmSync } from 'node:fs';
 import IO from '../dist/main/NewLine.js';

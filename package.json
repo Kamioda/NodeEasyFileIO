@@ -1,6 +1,6 @@
 {
   "name": "nodeeasyfileio",
-  "version": "1.0.2-patch.1",
+  "version": "1.0.3",
   "description": "Node.js Easy File IO",
   "main": "dist/main/index.js",
   "type": "module",
@@ -32,7 +32,7 @@
   "homepage": "https://github.com/Kamioda/NodeEasyFileIO#readme",
   "devDependencies": {
     "@ava/typescript": "^4.1.0",
-    "@types/node": "^20.11.24",
+    "@types/node": "^20.16.2",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "ava": "^6.1.1",
