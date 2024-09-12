@@ -145,3 +145,5 @@ package-lock.json
 test/
 cleanup.js
 .*/
+add-js-extension.js
+jest.config.ts
