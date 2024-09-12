@@ -3,13 +3,13 @@ on: [push]
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 20.x
+      - name: Use Node.js 21.x
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '21'
           cache: 'npm'
       - run: npm ci
       - name: Execute test
