@@ -3,7 +3,7 @@
         "eslint:recommended",
         "plugin:node/recommended",
         "prettier",
-        "plugin:ava/recommended",
+        "plugin:jest/recommended",
         "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
@@ -12,10 +12,8 @@
         "ecmaVersion": 2023
     },
     "env": {
-        "es6": true,
         "node": true
     },
-    "plugins": ["node", "@typescript-eslint"],
     "rules": {
         "no-await-in-loop": "error",
         "no-useless-escape": "error",
@@ -28,7 +26,7 @@
         "no-var": "error",
         "prefer-const": "error",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["error"],
+        "@typescript-eslint/no-unused-vars": "error",
         "@typescript-eslint/no-namespace": "off",
         "node/no-missing-import": "off",
         "node/no-unpublished-import": "off"

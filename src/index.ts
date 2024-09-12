@@ -1,5 +1,5 @@
 import { readFileSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
-import IO from './NewLine.js';
+import IO from './NewLine';
 
 export function readFile(path: string): string {
     if (!existsSync(path)) throw new Error(`${path}: File is not exists`);

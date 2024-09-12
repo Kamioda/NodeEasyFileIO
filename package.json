@@ -7,8 +7,8 @@
   "types": "dist/@types/index.d.ts",
   "exports": {
     ".": {
-        "import": "./dist/esm/index.js",
-        "require": "./dist/cjs/index.js"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
     }
   },
   "engines": {
@@ -20,13 +20,12 @@
     "eslint:fix": "eslint --cache --ext .js,.ts . --fix",
     "coverage": "c8 npm test",
     "ci": "run-p eslint coverage",
-    "pretest": "tsc --project tsconfig.esm.json",
-    "test": "ava --verbose ./test/",
-    "posttest": "node ./cleanup.js",
+    "test": "jest",
     "prepack": "run-p build:*",
     "postpack": "node ./cleanup.js",
     "build": "run-p build:*",
     "build:esm": "tsc --project tsconfig.esm.json",
+    "postbuild:esm": "node ./add-js-extension.js dist/esm/",
     "build:cjs": "tsc --project tsconfig.cjs.json"
   },
   "repository": {
@@ -40,19 +39,19 @@
   },
   "homepage": "https://github.com/Kamioda/NodeEasyFileIO#readme",
   "devDependencies": {
-    "@ava/typescript": "^4.1.0",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.16.2",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "ava": "^6.1.1",
-    "c8": "^9.1.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-ava": "^14.0.0",
+    "eslint-plugin-jest": "^28.8.3",
     "eslint-plugin-node": "^11.1.0",
+    "jest": "^29.7.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.2.5",
-    "tsimp": "^2.0.11",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
 }
