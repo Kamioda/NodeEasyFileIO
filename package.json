@@ -1,10 +1,16 @@
 {
   "name": "nodeeasyfileio",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Node.js Easy File IO",
-  "main": "dist/main/index.js",
   "type": "module",
+  "main": "dist/cjs/index.js",
   "types": "dist/@types/index.d.ts",
+  "exports": {
+    ".": {
+        "import": "./dist/esm/index.js",
+        "require": "./dist/cjs/index.js"
+    }
+  },
   "engines": {
     "node": ">=21.0.0"
   },
@@ -14,11 +20,14 @@
     "eslint:fix": "eslint --cache --ext .js,.ts . --fix",
     "coverage": "c8 npm test",
     "ci": "run-p eslint coverage",
-    "pretest": "tsc",
+    "pretest": "tsc --project tsconfig.esm.json",
     "test": "ava --verbose ./test/",
     "posttest": "node ./cleanup.js",
-    "prepack": "tsc",
-    "postpack": "node ./cleanup.js"
+    "prepack": "run-p build:*",
+    "postpack": "node ./cleanup.js",
+    "build": "run-p build:*",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json"
   },
   "repository": {
     "type": "git",

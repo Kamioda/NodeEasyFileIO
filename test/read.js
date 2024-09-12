@@ -1,4 +1,4 @@
-import { readFile, readCSV, readJson, readProperties } from '../dist/main/index.js';
+import { readFile, readCSV, readJson, readProperties } from '../dist/esm/index.js';
 import test from 'ava';
 
 test('Read Text File/OK', t => {
