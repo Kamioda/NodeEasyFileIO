@@ -3,9 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type { Config } from 'jest';
-
-const config: Config = {
+module.exports = {
     clearMocks: true,
     collectCoverage: true,
     coverageDirectory: 'coverage',
@@ -16,5 +14,3 @@ const config: Config = {
     testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
-
-export default config;
