@@ -15,10 +15,10 @@
     "ci": "run-p eslint test",
     "test": "jest",
     "prepack": "run-p build:*",
-    "postpack": "node ./cleanup.js",
+    "postpack": "node ./cleanup.mjs",
     "build": "run-p build:*",
     "build:esm": "tsc --project tsconfig.esm.json",
-    "postbuild:esm": "node ./add-js-extension.js dist/esm/",
+    "postbuild:esm": "node ./add-js-extension.mjs dist/esm/",
     "build:cjs": "tsc --project tsconfig.cjs.json"
   },
   "repository": {
