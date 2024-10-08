@@ -1,16 +1,10 @@
 {
   "name": "nodeeasyfileio",
-  "version": "1.0.4-patch01",
+  "version": "1.0.4-patch02",
   "description": "Node.js Easy File IO",
-  "type": "module",
   "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/@types/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
-    }
-  },
   "engines": {
     "node": ">=21.0.0"
   },
