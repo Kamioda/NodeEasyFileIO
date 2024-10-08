@@ -1,23 +1,23 @@
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import { readdirSync, statSync, readFileSync, existsSync, writeFileSync } from 'node:fs';
+import { join, extname, dirname } from 'node:path';
 
 function addJsExtension(dir) {
-    fs.readdirSync(dir).forEach(file => {
-        const filePath = path.join(dir, file);
+    readdirSync(dir).forEach(file => {
+        const filePath = join(dir, file);
 
-        if (fs.statSync(filePath).isDirectory()) {
+        if (statSync(filePath).isDirectory()) {
             addJsExtension(filePath); // 再帰的にディレクトリを探索
-        } else if (path.extname(filePath) === '.js') {
-            let data = fs.readFileSync(filePath, 'utf8');
+        } else if (extname(filePath) === '.js') {
+            let data = readFileSync(filePath, 'utf8');
 
             // import文のfromがローカルパスかどうか確認して処理
             data = data.replace(/(import .*? from ['"])(.*?)(['"])/g, (match, p1, p2, p3) => {
                 // ローカルファイルまたはディレクトリへの相対パスかどうかを確認
                 if (p2.startsWith('./') || p2.startsWith('../')) {
-                    const importPath = path.join(path.dirname(filePath), p2);
+                    const importPath = join(dirname(filePath), p2);
 
                     // ディレクトリの場合は /index.js を追加
-                    if (fs.existsSync(importPath) && fs.statSync(importPath).isDirectory()) {
+                    if (existsSync(importPath) && statSync(importPath).isDirectory()) {
                         return `${p1}${p2}/index.js${p3}`;
                     }
                     // ファイルの場合で .js 拡張子がなければ追加
@@ -31,7 +31,7 @@ function addJsExtension(dir) {
             });
 
             // ファイルを上書き
-            fs.writeFileSync(filePath, data, 'utf8');
+            writeFileSync(filePath, data, 'utf8');
         }
     });
 }
