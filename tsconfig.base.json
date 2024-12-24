@@ -10,7 +10,7 @@
         "moduleResolution": "Node",
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "allowJs": true,
+        "allowJs": true
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "./**/*.test.ts"]

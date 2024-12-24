@@ -6,11 +6,11 @@ describe('read test', () => {
     it('Read Text File/OK', () => {
         expect(readFile('./readtestdata/test.txt')).toBe('Hello World!');
     });
-    
+
     it('Read Text File/File is not found', () => {
         expect(() => readFile('./readtestdata/hello.txt')).toThrow('./readtestdata/hello.txt: File is not exists');
     });
-    
+
     it('Read CSV 1', () => {
         const expects = [['Hello', 'World!']];
         const ReadResult = readCSV('./readtestdata/test1.csv');
@@ -20,7 +20,7 @@ describe('read test', () => {
             });
         });
     });
-    
+
     it('Read CSV 2', () => {
         const expects = [
             ['Hello', 'World!'],
@@ -33,7 +33,7 @@ describe('read test', () => {
             });
         });
     });
-    
+
     it('Read JSON File', () => {
         expect(readJson('./readtestdata/test.json')).toStrictEqual({
             id: 'helloworld',
@@ -41,14 +41,14 @@ describe('read test', () => {
             url: 'https://www.kamioda.tokyo/',
         });
     });
-    
+
     it('Read Properties File', () => {
         expect(readProperties('./readtestdata/test.properties')).toStrictEqual({
             id: 'helloworld',
             name: 'Hello World!',
             url: 'https://www.kamioda.tokyo/',
         });
-    });    
+    });
 });
 
 describe('write test', () => {
