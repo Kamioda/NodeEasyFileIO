@@ -1,6 +1,6 @@
 {
   "name": "nodeeasyfileio",
-  "version": "1.0.4-patch02",
+  "version": "1.0.5",
   "description": "Node.js Easy File IO",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
