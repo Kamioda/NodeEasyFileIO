@@ -38,6 +38,7 @@ export function writeFile(
     content?: string | NodeJS.ArrayBufferView,
     overwrite: OverwriteMode = OverwriteMode.None
 ) {
+    if (path.indexOf('\\') >= 0) return writeFile(path.replace(/\\/g, '/'), content, overwrite);
     const dir = path.substring(0, path.lastIndexOf('/') + 1);
     if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
     if (existsSync(path)) {
