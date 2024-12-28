@@ -68,17 +68,23 @@ describe('write test', () => {
             writeFile('./writetestdata/test1a.txt', content);
             expect(readFileSync('./writetestdata/test1a.txt', 'utf-8')).toBe(content);
         });
+
+        it('Create Text File/Path is Windows Format', () => {
+            const content = 'Hello World!';
+            writeFile('./writetestdata\\test1b.txt', content);
+            expect(readFileSync('./writetestdata/test1b.txt', 'utf-8')).toBe(content);
+        });
     
         it('Create Text File/Exists', () => {
             const contentA = 'Hello World!';
             const contentB = 'HelloWorld!';
             writeFile('./writetestdata/test2.txt', contentA);
             expect(() => writeFile('./writetestdata/test2.txt', contentB)).toThrow(
-                './writetestdata/test2.txt: File already exists'
+                './writetestdata/test2.txt: File is already exists'
             );
             expect(readFileSync('./writetestdata/test2.txt', 'utf-8')).toBe(contentA);
             expect(() => writeFile('./writetestdata/test2.txt', contentB, OverwriteMode.None)).toThrow(
-                './writetestdata/test2.txt: File already exists'
+                './writetestdata/test2.txt: File is already exists'
             );
             expect(readFileSync('./writetestdata/test2.txt', 'utf-8')).toBe(contentA);
             writeFile('./writetestdata/test2.txt', contentB, OverwriteMode.Replace);
@@ -138,16 +144,65 @@ describe('write test', () => {
             );
         });
     });
+    
     describe('write additional tests', () => {
-        it('Create Text File/Append', () => {
+        it('Write Text File/Append', () => {
             const contentA = 'Hello';
             const contentB = ' World!';
             writeFile('./writetestdata/test3.txt', contentA);
             writeFile('./writetestdata/test3.txt', contentB, OverwriteMode.Append);
             expect(readFileSync('./writetestdata/test3.txt', 'utf-8')).toBe(contentA + contentB);
         });
+
+        it('Write Text File/Append/No Content', () => {
+            const content = 'Hello World!';
+            writeFile('./writetestdata/test3a.txt', content);
+            writeFile('./writetestdata/test3a.txt', null, OverwriteMode.Append);
+            expect(readFileSync('./writetestdata/test3a.txt', 'utf-8')).toBe(content);
+        });
+
+        it('Write Text File/Append New Line', () => {
+            const contentA = 'Hello';
+            const contentB = ' World!';
+            writeFile('./writetestdata/test4.txt', contentA);
+            writeFile('./writetestdata/test4.txt', contentB, OverwriteMode.AppendNewLine);
+            expect(readFileSync('./writetestdata/test4.txt', 'utf-8')).toBe(contentA + IO.NewLine + contentB);
+        });
+
+        it('Write Text File/Append New Line/No Content', () => {
+            const content = 'Hello World!';
+            writeFile('./writetestdata/test4a.txt', content);
+            writeFile('./writetestdata/test4a.txt', null, OverwriteMode.AppendNewLine);
+            expect(readFileSync('./writetestdata/test4a.txt', 'utf-8')).toBe(content + IO.NewLine);
+        });
+
+        it('Write Text File/Append/No File', () => {
+            const content = 'Hello World!';
+            writeFile('./writetestdata/test5.txt', content, OverwriteMode.Append);
+            expect(readFileSync('./writetestdata/test5.txt', 'utf-8')).toBe(content);
+        });
+
+        it('Write Text File/Append/Empty File', () => {
+            writeFile('./writetestdata/test6.txt');
+            const content = 'Hello World!';
+            writeFile('./writetestdata/test6.txt', content, OverwriteMode.Append);
+            expect(readFileSync('./writetestdata/test6.txt', 'utf-8')).toBe(content);
+        });
+
+        it('Write Text File/AppendNewLine/No File', () => {
+            const content = 'Hello World!';
+            writeFile('./writetestdata/test7.txt', content, OverwriteMode.AppendNewLine);
+            expect(readFileSync('./writetestdata/test7.txt', 'utf-8')).toBe(content);
+        });
+
+        it('Write Text File/AppendNewLine/Empty File', () => {
+            writeFile('./writetestdata/test8.txt');
+            const content = 'Hello World!';
+            writeFile('./writetestdata/test8.txt', content, OverwriteMode.AppendNewLine);
+            expect(readFileSync('./writetestdata/test8.txt', 'utf-8')).toBe(content);
+        });
     
-        it('Create CSV with Append Mode', () => {
+        it('Write CSV with Append Mode', () => {
             const contentA = ['Hello', 'World!'];
             const contentB = ['Hello', 'Tokyo'];
             writeCSV('./writetestdata/test3.csv', contentA);
@@ -155,7 +210,7 @@ describe('write test', () => {
             expect(readFileSync('./writetestdata/test3.csv', 'utf-8')).toBe(contentA.join(',') + contentB.join(','));
         });
     
-        it('Create JSON File with Append Mode', () => {
+        it('Write JSON File with Append Mode', () => {
             const objA = { id: 'helloworld' };
             const objB = { id: 'HelloWorld', name: 'Hello World!', url: 'https://www.kamioda.tokyo/' };
             writeJson('./writetestdata/test3.json', objA);
@@ -164,15 +219,69 @@ describe('write test', () => {
             expect(JSON.parse(text)).toStrictEqual(objB);
         });
     
-        it('Create Properties File with Append Mode', () => {
+        it('Write Properties File with Append Mode', () => {
             const objA = { id: 'helloworld' };
             const objB = { name: 'Hello World!', url: 'https://www.kamioda.tokyo/' };
             writeProperties('./writetestdata/test3.properties', objA);
             writeProperties('./writetestdata/test3.properties', objB, OverwriteMode.Append);
-            const text = Object.keys({ ...objA, ...objB })
-                .map(i => `${i}=${{ ...objA, ...objB }[i]}`)
+            const expectedObj = {
+                id: 'helloworld',
+                name: 'Hello World!',
+                url: 'https://www.kamioda.tokyo/',
+            };
+            const text = Object.keys(expectedObj)
+                .map(i => `${i}=${expectedObj[i]}`)
                 .join(IO.NewLine);
             expect(readFileSync('./writetestdata/test3.properties', 'utf-8')).toBe(text);
         });
-    });    
+    });
+    describe('overwrite tests', () => {
+        it('Overwrite Text File', () => {
+            const contentA = 'Hello World!';
+            const contentB = 'Hello Tokyo!';
+            writeFile('./writetestdata/test9.txt', contentA);
+            writeFile('./writetestdata/test9.txt', contentB, OverwriteMode.Replace);
+            expect(readFileSync('./writetestdata/test9.txt', 'utf-8')).toBe(contentB);
+        });
+
+        it('Overwrite Text File/No Content', () => {
+            const content = 'Hello World!';
+            writeFile('./writetestdata/test10.txt', content);
+            writeFile('./writetestdata/test10.txt', null, OverwriteMode.Replace);
+            expect(readFileSync('./writetestdata/test10.txt', 'utf-8')).toBe('');
+        });
+
+        it('Overwrite CSV File', () => {
+            const contentA = ['Hello', 'World!'];
+            const contentB = ['Hello', 'Tokyo'];
+            writeCSV('./writetestdata/test10.csv', contentA);
+            writeCSV('./writetestdata/test10.csv', contentB, OverwriteMode.Replace);
+            expect(readFileSync('./writetestdata/test10.csv', 'utf-8')).toBe(contentB.join(','));
+        });
+
+        it('Overwrite JSON File', () => {
+            const objA = { id: 'helloworld' };
+            const objB = { name: 'Hello Tokyo!', url: 'https://www.kamioda.tokyo/' };
+            writeJson('./writetestdata/test11.json', objA);
+            writeJson('./writetestdata/test11.json', objB, OverwriteMode.Replace);
+            const text = readFileSync('./writetestdata/test11.json', 'utf-8');
+            expect(JSON.parse(text)).toStrictEqual(objB);
+        });
+
+        it('Overwrite Properties File', () => {
+            const objA = { id: 'helloworld' };
+            const objB = { name: 'Hello Tokyo!', url: 'https://www.kamioda.tokyo/' };
+            writeProperties('./writetestdata/test12.properties', objA);
+            writeProperties('./writetestdata/test12.properties', objB, OverwriteMode.Replace);
+            const expectedObj = {
+                name: 'Hello Tokyo!',
+                url: 'https://www.kamioda.tokyo/',
+            };
+            const text = Object.keys(expectedObj)
+                .map(i => `${i}=${expectedObj[i]}`)
+                .join(IO.NewLine);
+            expect(readFileSync('./writetestdata/test12.properties', 'utf-8')).toBe(text);
+        });
+    });
+    
 });

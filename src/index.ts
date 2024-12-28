@@ -35,39 +35,41 @@ export enum OverwriteMode {
 
 export function writeFile(
     path: string,
-    content?: string | NodeJS.ArrayBufferView,
+    content?: string | NodeJS.ArrayBufferView | null,
     overwrite: OverwriteMode = OverwriteMode.None
 ) {
     if (path.indexOf('\\') >= 0) return writeFile(path.replace(/\\/g, '/'), content, overwrite);
     const dir = path.substring(0, path.lastIndexOf('/') + 1);
     if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-    if (existsSync(path)) {
-        switch (overwrite) {
-            case OverwriteMode.None:
-                if (existsSync(path)) throw new Error(`${path}: File is already exists.`);
-                writeFileSync(path, content ?? '', 'utf-8');
-                break;
-            case OverwriteMode.Append: {
-                if (!existsSync(path)) return writeFile(path, content, OverwriteMode.None);
-                writeFileSync(path, readFile(path) + content, 'utf-8');
-                break;
-            }
-            case OverwriteMode.AppendNewLine: {
-                if (!existsSync(path)) return writeFile(path, content, OverwriteMode.None);
-                const current = readFile(path);
-                writeFileSync(
-                    path,
-                    (current === '' ? '' : IO.NewLine) + (content ?? ''),
-                    'utf-8'
-                );
-                break;
-            }
-            case OverwriteMode.Replace:
-                writeFileSync(path, content ?? '', 'utf-8');
-                break;
-            default:
-                throw new Error('Invalid overwrite mode.');
+    switch (overwrite) {
+        case OverwriteMode.None:
+            if (existsSync(path)) throw new Error(`${path}: File is already exists.`);
+            writeFileSync(path, content ?? '', 'utf-8');
+            break;
+        case OverwriteMode.Append: {
+            if (content == null) return;
+            if (!existsSync(path)) return writeFile(path, content, OverwriteMode.None);
+            writeFileSync(path, readFile(path) + content, 'utf-8');
+            break;
         }
+        case OverwriteMode.AppendNewLine: {
+            if (!existsSync(path)) return writeFile(path, content, OverwriteMode.None);
+            const current = readFile(path);
+            if (current === '') return writeFile(path, content, OverwriteMode.Replace);
+            writeFileSync(
+                path,
+                current + IO.NewLine + (content ?? ''),
+                'utf-8'
+            );
+            break;
+        }
+        case OverwriteMode.Replace:
+            writeFileSync(path, content ?? '', 'utf-8');
+            break;
+        /* v8 ignore start */
+        default:
+            throw new Error('Invalid overwrite mode.');
+        /* v8 ignore end */
     }
 }
 
@@ -89,17 +91,20 @@ export function writeJson(path: string, content: object, overwrite: OverwriteMod
             if (existsSync(path)) throw new Error(`${path}: File is already exists.`);
             writeFile(path, JSON.stringify(content), overwrite);
             break;
-        case OverwriteMode.Append:
-        case OverwriteMode.AppendNewLine: {
-            const current = existsSync(path) ? {} : readJson(path);
+        case OverwriteMode.Append: {
+            const current = existsSync(path) ? readJson(path) : {};
             writeFile(path, JSON.stringify({ ...current, ...content }), OverwriteMode.Replace);
             break;
         }
+        case OverwriteMode.AppendNewLine:
+            return writeJson(path, content, OverwriteMode.Append);
         case OverwriteMode.Replace:
             writeFile(path, JSON.stringify(content), overwrite);
             break;
+        /* v8 ignore start */
         default:
             throw new Error('Invalid overwrite mode.');
+        /* v8 ignore end */
     }
 }
 
@@ -110,19 +115,23 @@ export function writeProperties(path: string, content: object, overwrite: Overwr
     switch (overwrite) {
         case OverwriteMode.None:
             if (existsSync(path)) throw new Error(`${path}: File is already exists.`);
+            writeFile(path, Keys.map(i => `${i}=${content[i]}`).join(IO.NewLine), overwrite);
             break;
-        case OverwriteMode.Append:
-        case OverwriteMode.AppendNewLine: {
-            const current = existsSync(path) ? {} : readProperties(path);
+        case OverwriteMode.Append: {
+            const current = existsSync(path) ? readProperties(path) : {};
             const newRecord = { ...current, ...content };
-            writeFile(path, Keys.map(i => `${i}=${newRecord[i]}`).join(IO.NewLine), OverwriteMode.Replace);
+            writeFile(path, Object.keys(newRecord).map(i => `${i}=${newRecord[i]}`).join(IO.NewLine), OverwriteMode.Replace);
             break;
         }
+        case OverwriteMode.AppendNewLine:
+            return writeProperties(path, content, OverwriteMode.Append);
         case OverwriteMode.Replace: {
             writeFile(path, Keys.map(i => `${i}=${content[i]}`).join(IO.NewLine), overwrite);
             break;
         }
+        /* v8 ignore start */
         default:
             throw new Error('Invalid overwrite mode.');
+        /* v8 ignore end */
     }
 }
